@@ -24,8 +24,8 @@ import scipy
 import numpy as np
 import tensorflow as tf
 
-from scipy.misc import imresize
-
+# from scipy.misc import imresize
+from PIL.Image import resize
 
 def extract_pose_keypoints(pose):
   pose_keypoints = - np.ones((18, 2), dtype=int)
@@ -84,10 +84,12 @@ def process_segment_map(segment, h, w):
   """Extract segment maps."""
   segment = np.asarray(segment.T, dtype=np.uint8)
   if h >= w:
-    segment = imresize(segment, (h, h), interp='nearest')
+    # segment = imresize(segment, (h, h), interp='nearest')
+    segment = resize(segment, (h, h), interp='nearest')
     segment = segment[:, :w]
   else:
-    segment = imresize(segment, (w, w), interp='nearest')
+    # segment = imresize(segment, (w, w), interp='nearest')
+    segment = resize(segment, (w, w), interp='nearest')
     segment = segment[:h, :] 
   return segment
 
