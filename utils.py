@@ -25,7 +25,12 @@ import numpy as np
 import tensorflow as tf
 
 # from scipy.misc import imresize
-from PIL.Image import resize
+from PIL import Image
+
+# segment = imresize(segment, (h, h), interp='nearest')
+def resize(im, size, interp):
+  im = Image.fromarray(im)
+  return np.array(im.resize(size))
 
 def extract_pose_keypoints(pose):
   pose_keypoints = - np.ones((18, 2), dtype=int)
